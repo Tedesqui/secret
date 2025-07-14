@@ -35,7 +35,7 @@
 </head>
 
 <body>
-  <button id="muteButton">🔇 Mudo</button>
+  <button id="muteButton">🔇 Ativar Som</button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
@@ -62,7 +62,7 @@
 
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
-      muteButton.textContent = video.muted ? '🔇 Mudo' : '🔊 Ativar Som';
+      muteButton.textContent = video.muted ? '🔇 Ativar Som' : '🔊 Mudo';
       muteButton.classList.add('rotating');
       setTimeout(() => muteButton.classList.remove('rotating'), 300);
     });
