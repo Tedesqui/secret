@@ -72,9 +72,8 @@
         muteButton.textContent = video.muted ? '🔇 Som Desligado' : '🔊 Som Ligado';
       });
 
-      // Depois de fixar a posição GPS inicial, congelar o objeto no lugar
       const videoHolder = document.getElementById('video-holder');
-      videoHolder.addEventListener('gps-entity-place-update-positon', () => {
+      videoHolder.addEventListener('gps-entity-place-update-position', () => {
         videoHolder.removeAttribute('gps-entity-place');
       });
     </script>
