@@ -22,7 +22,10 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
+    }
+    #muteButton.rotating {
+      transform: rotate(360deg);
     }
     #muteButton:hover {
       background-color: rgba(255, 255, 255, 0.1);
@@ -39,8 +42,9 @@
       <video id="Video_Asset_0" src="videos/helinho.mp4" playsinline webkit-playsinline muted loop></video>
     </a-assets>
 
-    <a-entity id="video-holder" position="0 1.7 -10" animation="property: position; to: 0 1.7 -4; dur: 1500; easing: easeOutElastic">
-      <a-video width="3" height="4" src="#Video_Asset_0" look-at="[camera]" color="#FFFFFF" autoplay loop muted></a-video>
+    <a-entity id="video-holder" position="0 1.7 -10"
+      animation="property: position; to: 0 1.7 -4; dur: 1500; easing: easeOutElastic">
+      <a-video width="2" height="3" src="#Video_Asset_0" look-at="[camera]" color="#FFFFFF" autoplay loop muted></a-video>
     </a-entity>
 
     <a-camera id="camera1"></a-camera>
@@ -59,6 +63,8 @@
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
       muteButton.textContent = video.muted ? '🔇' : '🔊';
+      muteButton.classList.add('rotating');
+      setTimeout(() => muteButton.classList.remove('rotating'), 300);
     });
   </script>
 </body>
