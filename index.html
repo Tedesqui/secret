@@ -1,26 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> HELINHO DO SINDICATO 36123 </title>
-    <body> Olhe ao seu redor para ver vídeos em Holograma do Helinho do Sindicato </body>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    </head>
+    <title>HELINHO DO SINDICATO 36123</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Scripts atualizados para A-Frame e AR.js -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
 
-  <body>
+<body style="margin: 0; overflow: hidden;">
+    <div style="position: fixed; top: 10px; width: 100%; text-align: center; z-index: 1; color: white; font-family: sans-serif;">
+        <p>Olhe ao seu redor para ver o vídeo. Toque no ecrã para ativar o som.</p>
+    </div>
+
+    <!-- 
+        A cena AR. Removidos os componentes de GPS e câmaras duplicadas 
+        para uma experiência mais estável.
+    -->
     <a-scene
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-   >
-      <a-video width="3" height="5" muted autoplay loop src="videos/helinho.mp4" video.muted= "false" class="intersectable" position="0 1,5 -4" rotation="0 0 0" color="#FFFFFF" preload="auto";
-></a-video>       
-      ></a-entity>
-      <a-camera id='camera1' look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='gpsMinDistance: 5'> </a-camera>
+        vr-mode-ui="enabled: false"
+        arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+        renderer="antialias: true; alpha: true"
+    >
+        <!-- 
+            CORREÇÃO PRINCIPAL: O vídeo é definido APENAS UMA VEZ aqui dentro de <a-assets>.
+            Isto evita que múltiplas fontes de áudio sejam carregadas.
+        -->
+        <a-assets>
+            <video 
+                id="Video_Asset_0" 
+                src="videos/helinho.mp4" 
+                preload="auto" 
+                autoplay 
+                loop 
+                crossorigin="anonymous" 
+                playsinline 
+                webkit-playsinline 
+                muted="true">
+            </video>
+        </a-assets>
 
-      <a-camera gps-camera rotation-reader> </a-camera>
+        <!-- 
+            A câmara representa a sua visão.
+            O vídeo é colocado DENTRO da câmara para que se mova com ela.
+        -->
+        <a-camera>
+            <!-- 
+                O <a-video> agora usa o 'src' para REFERENCIAR o vídeo dos assets (#helinhoVideo),
+                em vez de carregar um novo ficheiro.
+            -->
+            <a-video
+                src="Video_Asset_0"
+                width="3"
+                height="5"
+                position="0 1,5 -4">
+            </a-video>
+        </a-camera>
+
     </a-scene>
-  </body>
+
+    <!-- Script para desmutar o vídeo de forma segura na primeira interação do utilizador -->
+    <script>
+        function unmuteVideoOnFirstInteraction() {
+            const video = document.querySelector('Video_Asset_0');
+            if (video && video.muted) {
+                video.muted = false;
+                // Remove o 'listener' após a primeira execução para evitar problemas
+                document.body.removeEventListener('click', unmuteVideoOnFirstInteraction);
+            }
+        }
+        document.body.addEventListener('click', unmuteVideoOnFirstInteraction);
+    </script>
+
+</body>
 </html>
