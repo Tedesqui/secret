@@ -62,7 +62,7 @@
 
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
-      muteButton.textContent = video.muted ? '🔇' : '🔊';
+      muteButton.textContent = video.muted ? '🔇 ATIVAR SOM' : '🔊 MUDO';
       muteButton.classList.add('rotating');
       setTimeout(() => muteButton.classList.remove('rotating'), 300);
     });
