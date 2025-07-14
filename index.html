@@ -3,37 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title> HELINHO DO SINDICATO 36123 </title>
-    <body> Olhe ao seu redor para ver vídeos em Holograma do Helinho do Sindicato </body>
+    <title>HELINHO DO SINDICATO 36123</title>
+    <body>Olhe ao seu redor para ver vídeos em Holograma do Helinho do Sindicato</body>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    </head>
+  </head>
 
   <body>
     <a-scene
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-   >
-  <a-assets>
-    <video
-      id="Video_Asset_0"
-      src="videos/helinho.mp4"    
-      autoplay
-      loop
-      crossorigin="anonymous" 
-      playsinline 
-      webkit-playsinline
-      muted="false"     
-      width="3" 
-     height="5"
-     class="intersectable" 
-     position="0 1,5 -4" 
-     rotation="0 0 0" 
-     color="#FFFFFF"> 
-      </video>
-     </a-assets>         
-      ></a-entity>
+    >
+      <a-assets>
+        <video id="Video_Asset_0" src="videos/helinho.mp4"></video>
+      </a-assets>
+
+      <a-video width="3" height="5" src="#Video_Asset_0" class="intersectable" position="0 1,7 -4" rotation="0 0 0" color="#FFFFFF";></a-video>
+
       <a-camera id='camera1' look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='gpsMinDistance: 5'> </a-camera>
 
       <a-camera gps-camera rotation-reader> </a-camera>
