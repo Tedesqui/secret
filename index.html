@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>HELINHO DO SINDICATO 36123</title>
+    <title>Vídeo em Realidade Aumentada</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
     <!-- A-Frame, a biblioteca base para WebXR -->
@@ -28,14 +28,14 @@
             <!-- Substitua o 'src' pelo caminho do seu vídeo -->
             <video 
                 id="helinhoVideo" 
-                src="https://cdn.glitch.global/c6c1b70e-6c1e-4034-9d41-6a2fd1443e69/big-buck-bunny_trailer.mp4?v=1720543649994" 
+                src="videos/helinho.mp4"
                 preload="auto" 
                 autoplay 
                 loop 
                 crossorigin="anonymous" 
                 playsinline 
                 webkit-playsinline 
-                muted="true">
+                muted="false">
             </video>
         </a-assets>
 
@@ -45,7 +45,7 @@
         -->
         <a-camera>
             <a-video
-                src="#helinhoVideo"
+                src="videos/helinho.mp4"
                 width="1.6"
                 height="0.9"
                 <!-- Posição relativa à câmara: 0 no eixo X, -0.5 no Y (um pouco abaixo), -3 no Z (3 metros à frente) -->
