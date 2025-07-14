@@ -3,74 +3,67 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cubo AR Geo-Localizado</title>
+    <title>Vídeo em Realidade Aumentada</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
     <!-- A-Frame, a biblioteca base para WebXR -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <!-- AR.js, para funcionalidades de Realidade Aumentada baseada em localização -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-gps.js"></script>
-
-    <style>
-        .instructions {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            z-index: 10;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px 10px 0 0;
-            font-family: sans-serif;
-        }
-    </style>
+    <!-- AR.js para a funcionalidade de Realidade Aumentada -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 
 <body style="margin: 0; overflow: hidden;">
-    
-    <div class="instructions">
-        <p>A procurar a sua localização... Se estiver no local certo, um cubo aparecerá.</p>
+    <div style="position: fixed; top: 10px; width: 100%; text-align: center; z-index: 1; color: white; font-family: sans-serif;">
+        <p>O vídeo aparecerá à sua frente.</p>
     </div>
 
     <!-- A 'cena' de A-Frame é onde a mágica da AR acontece -->
     <a-scene
-        <!-- A linha abaixo desativa o botão para entrar no modo de Realidade Virtual (VR) -->
         vr-mode-ui="enabled: false"
         arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
         renderer="antialias: true; alpha: true"
     >
-        <!-- A câmara representa a sua visão. O componente 'gps-camera' a conecta ao GPS do seu dispositivo.
-             'minDistance' e 'maxDistance' controlam a que distância os objetos são renderizados. -->
-        <a-camera gps-camera="minDistance: 5; maxDistance: 50" rotation-reader></a-camera>
+        <!-- Pré-carrega o vídeo para um melhor desempenho -->
+        <a-assets>
+            <!-- Substitua o 'src' pelo caminho do seu vídeo -->
+            <video 
+                id="helinhoVideo" 
+                src="https://cdn.glitch.global/c6c1b70e-6c1e-4034-9d41-6a2fd1443e69/big-buck-bunny_trailer.mp4?v=1720543649994" 
+                preload="auto" 
+                autoplay 
+                loop 
+                crossorigin="anonymous" 
+                playsinline 
+                webkit-playsinline 
+                muted="true">
+            </video>
+        </a-assets>
 
         <!-- 
-            ESTE É O OBJETO GEO-BLOQUEADO.
-            Altere os valores de 'latitude' e 'longitude' para as coordenadas exatas da sua casa.
-            O cubo só será visível quando o seu dispositivo estiver muito perto destas coordenadas.
+            A câmara representa a sua visão.
+            O vídeo é colocado DENTRO da câmara para que se mova com ela.
         -->
-        <a-entity gps-entity-place="latitude: -23.0065; longitude: -44.3200;">
-            
-            <!-- O cubo branco -->
-            <a-box 
-                color="white" 
-                scale="1 1 1"
-                position="0 1 0">
-            </a-box>
-            
-            <!-- Texto informativo que aparece com o cubo -->
-            <a-text
-                value="Objeto Secreto Encontrado!"
-                look-at="[gps-camera]"
-                scale="5 5 5"
-                position="0 3.5 0"
-                align="center">
-            </a-text>
-
-        </a-entity>
+        <a-camera>
+            <a-video
+                src="#helinhoVideo"
+                width="1.6"
+                height="0.9"
+                <!-- Posição relativa à câmara: 0 no eixo X, -0.5 no Y (um pouco abaixo), -3 no Z (3 metros à frente) -->
+                position="0 -0.5 -3">
+            </a-video>
+        </a-camera>
 
     </a-scene>
+
+    <!-- Script para tentar desmutar o vídeo após uma interação do utilizador -->
+    <script>
+        document.body.addEventListener('click', function () {
+            const video = document.querySelector('#helinhoVideo');
+            if (video) {
+                video.muted = false;
+            }
+        });
+    </script>
+
 </body>
 </html>
