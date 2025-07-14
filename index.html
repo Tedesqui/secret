@@ -16,10 +16,10 @@
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
     >
       <a-assets>
-        <video id="Video_Asset_0" src="videos/helinho.mp4" playsinline webkit-playsinline></video>
+        <video id="Video_Asset_0" src="videos/helinho.mp4" playsinline webkit-playsinline muted loop></video>
       </a-assets>
 
-      <a-video width="3" height="5" src="#Video_Asset_0" class="intersectable" position="0 1.7 -4" rotation="0 0 0" color="#FFFFFF" autoplay loop></a-video>
+      <a-video width="3" height="5" src="#Video_Asset_0" class="intersectable" position="0 1.7 -4" rotation="0 0 0" color="#FFFFFF" autoplay loop muted></a-video>
 
       <a-camera id='camera1' look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='gpsMinDistance: 5'> </a-camera>
 
@@ -27,10 +27,11 @@
     </a-scene>
 
     <script>
-      // Faz o vídeo iniciar quando o ARJS detectar o marker
       document.querySelector('a-scene').addEventListener('loaded', () => {
         const video = document.querySelector('#Video_Asset_0');
-        video.play();
+        video.play().catch((e) => {
+          console.log('Autoplay bloqueado, tente iniciar com interação do usuário.');
+        });
       });
     </script>
   </body>
