@@ -36,10 +36,13 @@
         <video id="Video_Asset_0" src="videos/helinho.mp4" playsinline webkit-playsinline muted loop></video>
       </a-assets>
 
-      <a-video width="3" height="5" src="#Video_Asset_0" class="intersectable" position="0 1.7 -4" rotation="0 0 0" color="#FFFFFF" autoplay loop muted></a-video>
+      <a-video width="3" height="5" src="#Video_Asset_0" class="intersectable" position="0 1.7 -4" rotation="0 0 0" look-at="[camera]" color="#FFFFFF" autoplay loop muted></a-video>
 
-      <a-camera id='camera1' look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='gpsMinDistance: 5'></a-camera>
-      <a-camera gps-camera rotation-reader></a-camera>
+      <a-camera id='camera1' 
+        look-controls-enabled='false' 
+        arjs-device-orientation-controls='smoothingFactor: 0.4' 
+        gps-new-camera='gpsMinDistance: 5; gpsTimeInterval: 500; gpsMaxDistance: 500; smoothingFactor: 0.8'>
+      </a-camera>
     </a-scene>
 
     <script>
