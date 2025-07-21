@@ -12,7 +12,7 @@
   <style>
     #initialMessage {
       position: fixed;
-      top: 50%;
+      top: calc(50% + 100px); /* Posição alterada: 100px para baixo */
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 20px;
@@ -23,6 +23,7 @@
       font-size: 18px;
       z-index: 1001;
       max-width: 90%;
+      font-family: sans-serif;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
@@ -31,22 +32,32 @@
       top: 20px;
       left: 20px;
       padding: 10px 20px;
-      font-size: 27px; 
       z-index: 999;
-      /* Semitransparência aumentada em 50% (de 0.7 para 0.35) */
-      background-color: rgba(0, 0, 0, 0.35); 
-      color: #28a745; 
+      /* Semitransparência 20% mais escura (0.35 * 1.2 = 0.42) */
+      background-color: rgba(0, 0, 0, 0.42); 
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: transform 0.3s ease, background-color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
+    #playPauseButton .icon {
+        font-size: 27px;
+        color: #28a745; /* Cor verde mantida para o ícone */
+    }
+    #playPauseButton .text {
+        font-size: 16px; /* Tamanho da fonte alterado */
+        color: white; /* Cor da fonte alterada para branca */
+    }
+
     #playPauseButton.rotating {
       transform: rotate(360deg);
     }
     #playPauseButton:hover {
-      /* Semitransparência do hover também ajustada */
-      background-color: rgba(0, 0, 0, 0.5); 
+      /* Semitransparência do hover também ajustada (0.5 * 1.2 = 0.6) */
+      background-color: rgba(0, 0, 0, 0.6); 
       transform: scale(1.05);
     }
 
@@ -91,7 +102,9 @@
     Aponte seu celular para frente para ver o vídeo, em seguida clique em Play.
   </div>
 
-  <button id="playPauseButton">▶️ Play</button>
+  <button id="playPauseButton">
+    <span class="icon">▶️</span> <span class="text">Play</span>
+  </button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
@@ -122,13 +135,12 @@
     const video = document.querySelector('#Video_Asset_0');
     const playPauseButton = document.getElementById('playPauseButton');
     
-    // Script para fazer a mensagem inicial desaparecer
     window.addEventListener('load', () => {
       const message = document.getElementById('initialMessage');
       if (message) {
         setTimeout(() => {
           message.style.display = 'none';
-        }, 5000); // A mensagem some após 5 segundos
+        }, 6000); 
       }
     });
 
@@ -136,12 +148,12 @@
       if (video.paused) {
         video.muted = false; 
         video.play();
-        // Palavra "Pause" adicionada novamente
-        playPauseButton.textContent = '⏸️ Pause';
+        // Alterado para innerHTML para suportar os spans
+        playPauseButton.innerHTML = '<span class="icon">⏸️</span> <span class="text">Pause</span>';
       } else {
         video.pause();
-        // Palavra "Play" adicionada novamente
-        playPauseButton.textContent = '▶️ Play';
+        // Alterado para innerHTML para suportar os spans
+        playPauseButton.innerHTML = '<span class="icon">▶️</span> <span class="text">Play</span>';
       }
       playPauseButton.classList.add('rotating');
       setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
