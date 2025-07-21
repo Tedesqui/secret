@@ -31,28 +31,34 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      padding: 10px 20px;
+      /* O padding agora é definido por estado */
       z-index: 999;
       background-color: rgba(0, 0, 0, 0.42); 
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
+    /* Padding do botão de PAUSE (estado 'playing') */
+    #playPauseButton.is-playing {
+        padding: 10px 20px; /* Padding original */
+    }
+    /* Padding do botão de PLAY (estado 'paused') */
+    #playPauseButton.is-paused {
+        padding: 5px 10px; /* Padding reduzido em 50% */
+    }
+
     #playPauseButton .icon {
-        /* O tamanho agora é definido por estado (play vs pause) */
         color: #28a745; 
     }
-    /* Regra para o ícone de PAUSE (estado 'playing') */
     #playPauseButton.is-playing .icon {
-        font-size: 27px; /* Tamanho original */
+        font-size: 27px;
     }
-    /* Regra para o ícone de PLAY (estado 'paused') */
     #playPauseButton.is-paused .icon {
-        font-size: 41px; /* Tamanho aumentado em 50% (27px * 1.5) */
+        font-size: 41px;
     }
     #playPauseButton .text {
         font-size: 16px; 
@@ -155,13 +161,11 @@
         video.muted = false; 
         video.play();
         playPauseButton.innerHTML = '<span class="icon">⏸︎</span> <span class="text">Pause</span>';
-        // Troca a classe de estado do botão
         playPauseButton.classList.remove('is-paused');
         playPauseButton.classList.add('is-playing');
       } else {
         video.pause();
         playPauseButton.innerHTML = '<span class="icon">▶︎</span> <span class="text">Play</span>';
-        // Troca a classe de estado do botão
         playPauseButton.classList.remove('is-playing');
         playPauseButton.classList.add('is-paused');
       }
