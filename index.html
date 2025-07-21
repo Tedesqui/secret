@@ -10,7 +10,7 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
   <style>
-    #muteButton {
+    #playPauseButton {
       position: fixed;
       top: 20px;
       left: 20px;
@@ -24,10 +24,10 @@
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-    #muteButton.rotating {
+    #playPauseButton.rotating {
       transform: rotate(360deg);
     }
-    #muteButton:hover {
+    #playPauseButton:hover {
       background-color: rgba(255, 255, 255, 0.1);
       transform: scale(1.05);
     }
@@ -68,7 +68,7 @@
 </head>
 
 <body>
-  <button id="muteButton">🔇 Ativar Som</button>
+  <button id="playPauseButton">⏸️ Pause</button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
@@ -97,19 +97,25 @@
 
   <script>
     const video = document.querySelector('#Video_Asset_0');
-    const muteButton = document.getElementById('muteButton');
+    const playPauseButton = document.getElementById('playPauseButton');
 
     document.querySelector('a-scene').addEventListener('loaded', () => {
       video.play().catch(() => {
         console.log('Autoplay bloqueado, aguarde interação do usuário.');
+        playPauseButton.textContent = '▶️ Play'; // Atualiza o botão se o autoplay falhar
       });
     });
 
-    muteButton.addEventListener('click', () => {
-      video.muted = !video.muted;
-      muteButton.textContent = video.muted ? '🔇 Ativar Som' : '🔊 Mudo';
-      muteButton.classList.add('rotating');
-      setTimeout(() => muteButton.classList.remove('rotating'), 300);
+    playPauseButton.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playPauseButton.textContent = '⏸️ Pause';
+      } else {
+        video.pause();
+        playPauseButton.textContent = '▶️ Play';
+      }
+      playPauseButton.classList.add('rotating');
+      setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
     });
   </script>
 </body>
