@@ -31,7 +31,6 @@
       position: fixed;
       top: 20px;
       left: 20px;
-      /* O padding agora é definido por estado */
       z-index: 999;
       background-color: rgba(0, 0, 0, 0.42); 
       border: none;
@@ -42,13 +41,12 @@
       align-items: center;
       gap: 8px;
     }
-    /* Padding do botão de PAUSE (estado 'playing') */
     #playPauseButton.is-playing {
-        padding: 10px 20px; /* Padding original */
+        padding: 10px 20px;
     }
-    /* Padding do botão de PLAY (estado 'paused') */
     #playPauseButton.is-paused {
-        padding: 5px 10px; /* Padding reduzido em 50% */
+        /* Padding reduzido em mais 20% (de 5px 10px para 4px 8px) */
+        padding: 4px 8px; 
     }
 
     #playPauseButton .icon {
