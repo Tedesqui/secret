@@ -15,20 +15,20 @@
       top: 20px;
       left: 20px;
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 27px; /* Tamanho do ícone aumentado em 50% (de 18px para 27px) */
       z-index: 999;
-      background-color: #28a745; /* Cor alterada para verde */
-      color: white;
+      background-color: rgba(0, 0, 0, 0.7); /* Cor do botão revertida para escura */
+      color: #28a745; /* Cor alterada para verde (apenas para o texto/ícone) */
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease; /* Adicionada transição de cor */
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
     #playPauseButton.rotating {
       transform: rotate(360deg);
     }
     #playPauseButton:hover {
-      background-color: #218838; /* Cor de hover corrigida para verde mais escuro */
+      background-color: rgba(0, 0, 0, 0.9); /* Efeito de hover para escurecer o botão */
       transform: scale(1.05);
     }
 
@@ -68,7 +68,7 @@
 </head>
 
 <body>
-  <button id="playPauseButton">▶️ Play</button>
+  <button id="playPauseButton">▶️</button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
@@ -98,17 +98,15 @@
   <script>
     const video = document.querySelector('#Video_Asset_0');
     const playPauseButton = document.getElementById('playPauseButton');
-
-    // Removido listener 'loaded' para impedir o autoplay
     
     playPauseButton.addEventListener('click', () => {
       if (video.paused) {
-        video.muted = false; // Garante que o vídeo não está mudo
+        video.muted = false; 
         video.play();
-        playPauseButton.textContent = '⏸️ Pause';
+        playPauseButton.textContent = '⏸️';
       } else {
         video.pause();
-        playPauseButton.textContent = '▶️ Play';
+        playPauseButton.textContent = '▶️';
       }
       playPauseButton.classList.add('rotating');
       setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
