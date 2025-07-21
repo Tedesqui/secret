@@ -17,18 +17,18 @@
       padding: 10px 20px;
       font-size: 18px;
       z-index: 999;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: #28a745; /* Cor alterada para verde */
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease; /* Adicionada transição de cor */
     }
     #playPauseButton.rotating {
       transform: rotate(360deg);
     }
     #playPauseButton:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: #218838; /* Cor de hover corrigida para verde mais escuro */
       transform: scale(1.05);
     }
 
@@ -68,16 +68,16 @@
 </head>
 
 <body>
-  <button id="playPauseButton">⏸️ Pause</button>
+  <button id="playPauseButton">▶️ Play</button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
-      <video id="Video_Asset_0" src="videos/celia.mp4" playsinline webkit-playsinline muted loop></video>
+      <video id="Video_Asset_0" src="videos/celia.mp4" playsinline webkit-playsinline loop></video>
     </a-assets>
 
     <a-entity id="video-holder" position="0 1.7 -10"
       animation="property: position; to: 0 1.7 -4; dur: 1500; easing: easeOutElastic">
-      <a-video width="3" height="3" src="#Video_Asset_0" look-at="[camera]" color="#FFFFFF" autoplay loop muted></a-video>
+      <a-video width="3" height="3" src="#Video_Asset_0" look-at="[camera]" color="#FFFFFF" loop></a-video>
     </a-entity>
 
     <a-camera id="camera1"></a-camera>
@@ -99,15 +99,11 @@
     const video = document.querySelector('#Video_Asset_0');
     const playPauseButton = document.getElementById('playPauseButton');
 
-    document.querySelector('a-scene').addEventListener('loaded', () => {
-      video.play().catch(() => {
-        console.log('Autoplay bloqueado, aguarde interação do usuário.');
-        playPauseButton.textContent = '▶️ Play'; // Atualiza o botão se o autoplay falhar
-      });
-    });
-
+    // Removido listener 'loaded' para impedir o autoplay
+    
     playPauseButton.addEventListener('click', () => {
       if (video.paused) {
+        video.muted = false; // Garante que o vídeo não está mudo
         video.play();
         playPauseButton.textContent = '⏸️ Pause';
       } else {
