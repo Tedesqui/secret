@@ -12,7 +12,7 @@
   <style>
     #initialMessage {
       position: fixed;
-      top: calc(50% + 100px); /* Posição alterada: 100px para baixo */
+      top: calc(50% + 100px); 
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 20px;
@@ -33,7 +33,6 @@
       left: 20px;
       padding: 10px 20px;
       z-index: 999;
-      /* Semitransparência 20% mais escura (0.35 * 1.2 = 0.42) */
       background-color: rgba(0, 0, 0, 0.42); 
       border: none;
       border-radius: 5px;
@@ -44,19 +43,26 @@
       gap: 8px;
     }
     #playPauseButton .icon {
-        font-size: 27px;
-        color: #28a745; /* Cor verde mantida para o ícone */
+        /* O tamanho agora é definido por estado (play vs pause) */
+        color: #28a745; 
+    }
+    /* Regra para o ícone de PAUSE (estado 'playing') */
+    #playPauseButton.is-playing .icon {
+        font-size: 27px; /* Tamanho original */
+    }
+    /* Regra para o ícone de PLAY (estado 'paused') */
+    #playPauseButton.is-paused .icon {
+        font-size: 41px; /* Tamanho aumentado em 50% (27px * 1.5) */
     }
     #playPauseButton .text {
-        font-size: 16px; /* Tamanho da fonte alterado */
-        color: white; /* Cor da fonte alterada para branca */
+        font-size: 16px; 
+        color: white; 
     }
 
     #playPauseButton.rotating {
       transform: rotate(360deg);
     }
     #playPauseButton:hover {
-      /* Semitransparência do hover também ajustada (0.5 * 1.2 = 0.6) */
       background-color: rgba(0, 0, 0, 0.6); 
       transform: scale(1.05);
     }
@@ -102,7 +108,7 @@
     Aponte seu celular para frente para ver o vídeo, em seguida clique em Play.
   </div>
 
-  <button id="playPauseButton">
+  <button id="playPauseButton" class="is-paused">
     <span class="icon">▶︎</span> <span class="text">Play</span>
   </button>
 
@@ -148,12 +154,16 @@
       if (video.paused) {
         video.muted = false; 
         video.play();
-        // Ícone de pause alterado para a variação de texto (⏸︎)
         playPauseButton.innerHTML = '<span class="icon">⏸︎</span> <span class="text">Pause</span>';
+        // Troca a classe de estado do botão
+        playPauseButton.classList.remove('is-paused');
+        playPauseButton.classList.add('is-playing');
       } else {
         video.pause();
-        // Ícone de play alterado para a variação de texto (▶︎)
         playPauseButton.innerHTML = '<span class="icon">▶︎</span> <span class="text">Play</span>';
+        // Troca a classe de estado do botão
+        playPauseButton.classList.remove('is-playing');
+        playPauseButton.classList.add('is-paused');
       }
       playPauseButton.classList.add('rotating');
       setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
