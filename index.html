@@ -103,7 +103,7 @@
   </div>
 
   <button id="playPauseButton">
-    <span class="icon">▶️</span> <span class="text">Play</span>
+    <span class="icon">▶︎</span> <span class="text">Play</span>
   </button>
 
   <a-scene vr-mode-ui="enabled: false">
@@ -148,12 +148,12 @@
       if (video.paused) {
         video.muted = false; 
         video.play();
-        // Alterado para innerHTML para suportar os spans
-        playPauseButton.innerHTML = '<span class="icon">⏸️</span> <span class="text">Pause</span>';
+        // Ícone de pause alterado para a variação de texto (⏸︎)
+        playPauseButton.innerHTML = '<span class="icon">⏸︎</span> <span class="text">Pause</span>';
       } else {
         video.pause();
-        // Alterado para innerHTML para suportar os spans
-        playPauseButton.innerHTML = '<span class="icon">▶️</span> <span class="text">Play</span>';
+        // Ícone de play alterado para a variação de texto (▶︎)
+        playPauseButton.innerHTML = '<span class="icon">▶︎</span> <span class="text">Play</span>';
       }
       playPauseButton.classList.add('rotating');
       setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
