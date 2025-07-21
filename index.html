@@ -10,15 +10,32 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
   <style>
+    #initialMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      z-index: 1001;
+      max-width: 90%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
     #playPauseButton {
       position: fixed;
       top: 20px;
       left: 20px;
       padding: 10px 20px;
-      font-size: 27px; /* Tamanho do ícone aumentado em 50% (de 18px para 27px) */
+      font-size: 27px; 
       z-index: 999;
-      background-color: rgba(0, 0, 0, 0.7); /* Cor do botão revertida para escura */
-      color: #28a745; /* Cor alterada para verde (apenas para o texto/ícone) */
+      /* Semitransparência aumentada em 50% (de 0.7 para 0.35) */
+      background-color: rgba(0, 0, 0, 0.35); 
+      color: #28a745; 
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -28,7 +45,8 @@
       transform: rotate(360deg);
     }
     #playPauseButton:hover {
-      background-color: rgba(0, 0, 0, 0.9); /* Efeito de hover para escurecer o botão */
+      /* Semitransparência do hover também ajustada */
+      background-color: rgba(0, 0, 0, 0.5); 
       transform: scale(1.05);
     }
 
@@ -43,13 +61,13 @@
       gap: 40px;
       z-index: 999;
       background-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 0 0 19.5px rgba(0, 0, 0, 0.47); /* 20% mais forte */
+      box-shadow: 0 0 19.5px rgba(0, 0, 0, 0.47); 
     }
     #footerSocial a {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 34.56px;  /* 90% do tamanho original */
+      width: 34.56px;  
       height: 34.56px;
       text-decoration: none;
     }
@@ -68,7 +86,12 @@
 </head>
 
 <body>
-  <button id="playPauseButton">▶️</button>
+  
+  <div id="initialMessage">
+    Aponte seu celular para frente para ver o vídeo, em seguida clique em Play.
+  </div>
+
+  <button id="playPauseButton">▶️ Play</button>
 
   <a-scene vr-mode-ui="enabled: false">
     <a-assets>
@@ -99,14 +122,26 @@
     const video = document.querySelector('#Video_Asset_0');
     const playPauseButton = document.getElementById('playPauseButton');
     
+    // Script para fazer a mensagem inicial desaparecer
+    window.addEventListener('load', () => {
+      const message = document.getElementById('initialMessage');
+      if (message) {
+        setTimeout(() => {
+          message.style.display = 'none';
+        }, 5000); // A mensagem some após 5 segundos
+      }
+    });
+
     playPauseButton.addEventListener('click', () => {
       if (video.paused) {
         video.muted = false; 
         video.play();
-        playPauseButton.textContent = '⏸️';
+        // Palavra "Pause" adicionada novamente
+        playPauseButton.textContent = '⏸️ Pause';
       } else {
         video.pause();
-        playPauseButton.textContent = '▶️';
+        // Palavra "Play" adicionada novamente
+        playPauseButton.textContent = '▶️ Play';
       }
       playPauseButton.classList.add('rotating');
       setTimeout(() => playPauseButton.classList.remove('rotating'), 300);
