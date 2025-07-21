@@ -39,13 +39,13 @@
       transition: transform 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
       display: inline-flex;
       align-items: center;
-      gap: 4px; /* Espaçamento entre ícone e texto diminuído */
+      gap: 4px; 
     }
     #playPauseButton.is-playing {
         padding: 10px 20px;
     }
     #playPauseButton.is-paused {
-        padding: 2px 6px; /* Padding vertical diminuído para reduzir altura */
+        padding: 2px 6px; 
     }
 
     #playPauseButton .icon {
@@ -55,8 +55,12 @@
         font-size: 24px;
     }
     #playPauseButton.is-paused .icon {
-        /* Tamanho do ícone play reduzido em ~30% para diminuir altura do botão */
-        font-size: 34px;
+        /* Tamanho aumentado em 30% (de 34px para 44px) */
+        font-size: 44px;
+        /* Deslocamento do ícone */
+        position: relative;
+        bottom: 3px; /* 3px mais para o alto */
+        left: 3px;   /* 3px mais para a direita */
     }
     #playPauseButton .text {
         font-size: 16px; 
